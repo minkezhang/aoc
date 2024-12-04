@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	fnHistorian = "historian.tsv"
+	fn = "historian.tsv"
 )
 
 func one(as []int, bs []int) int {
@@ -76,9 +76,9 @@ func read(fn string) ([]int, []int, error) {
 	return as, bs, nil
 }
 func main() {
-	as, bs, err := read(fnHistorian)
+	as, bs, err := read(fn)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "cannot read file %s: %v\n", fnHistorian, err)
+		fmt.Fprintf(os.Stderr, "cannot read file %s: %v\n", fn, err)
 	}
 
 	fmt.Printf("part 1: %v\n", one(as, bs))
