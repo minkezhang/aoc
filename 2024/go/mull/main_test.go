@@ -5,7 +5,7 @@ import (
 )
 
 func TestTwo(t *testing.T) {
-	configs := []struct{
+	configs := []struct {
 		name string
 		data string
 		want int

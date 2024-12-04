@@ -1,12 +1,12 @@
 package main
 
 import (
-	"regexp"
-	"strings"
-	"strconv"
 	"fmt"
 	"io"
 	"os"
+	"regexp"
+	"strconv"
+	"strings"
 )
 
 const (
@@ -35,11 +35,11 @@ func one(data string) int {
 }
 
 func two(data string) int {
-	donts := strings.Split(data, "don't()")  // Every subsequent part is preceeded by a "don't()"
+	donts := strings.Split(data, "don't()") // Every subsequent part is preceeded by a "don't()"
 	acc := one(donts[0])
 	if len(donts) > 1 {
 		for _, dont := range donts[1:] {
-			dos := strings.Split(dont, "do()")  // Every subsequent part is preceeded by a "do()"
+			dos := strings.Split(dont, "do()") // Every subsequent part is preceeded by a "do()"
 			if len(dos) > 1 {
 				for _, do := range dos[1:] {
 					acc += one(do)
