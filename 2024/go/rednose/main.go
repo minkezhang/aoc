@@ -17,6 +17,7 @@ func read(fn string) ([][]int, error) {
 	if err != nil {
 		return nil, err
 	}
+	defer f.Close()
 
 	reports := [][]int{}
 	s := bufio.NewScanner(f)
