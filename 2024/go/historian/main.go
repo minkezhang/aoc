@@ -79,6 +79,7 @@ func main() {
 	as, bs, err := read(fn)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "cannot read file %s: %v\n", fn, err)
+		os.Exit(1)
 	}
 
 	fmt.Printf("part 1: %v\n", one(as, bs))
