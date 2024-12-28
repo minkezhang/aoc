@@ -1,26 +1,21 @@
-package main
+package red_nosed_reports
 
 import (
 	"bufio"
-	"fmt"
-	"os"
+	"bytes"
 	"strconv"
 	"strings"
 )
 
-const (
-	fn = "rednose.tsv"
-)
+type P struct{}
 
-func read(fn string) ([][]int, error) {
-	f, err := os.Open(fn)
-	if err != nil {
-		return nil, err
-	}
-	defer f.Close()
+func (p P) Name() string  { return "2024/02" }
+func (p P) Input() string { return "historian_hysteria.tsv" }
 
+func (p P) F(data []byte) (int, int, error) {
 	reports := [][]int{}
-	s := bufio.NewScanner(f)
+	buf := bytes.NewReader(data)
+	s := bufio.NewScanner(buf)
 
 	for s.Scan() {
 		if line := string(s.Text()); line != "" {
@@ -32,7 +27,8 @@ func read(fn string) ([][]int, error) {
 			reports = append(reports, levels)
 		}
 	}
-	return reports, nil
+
+	return one(reports), two(reports), nil
 }
 
 func safe(report []int) bool {
@@ -96,14 +92,4 @@ func two(reports [][]int) int {
 		}
 	}
 	return acc
-}
-
-func main() {
-	reports, err := read(fn)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "cannot read file %s: %v\n", fn, err)
-		os.Exit(1)
-	}
-	fmt.Printf("part 1: %v\n", one(reports))
-	fmt.Printf("part 2: %v\n", two(reports))
 }

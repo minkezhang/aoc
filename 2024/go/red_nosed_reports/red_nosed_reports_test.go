@@ -1,4 +1,4 @@
-package main
+package red_nosed_reports
 
 import (
 	"testing"

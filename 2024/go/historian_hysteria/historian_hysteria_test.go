@@ -1,4 +1,4 @@
-package main
+package historian_hysteria
 
 import (
 	"testing"
