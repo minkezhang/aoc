@@ -1,4 +1,4 @@
-package main
+package mull_it_over
 
 import (
 	"testing"

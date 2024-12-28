@@ -1,4 +1,4 @@
-package main
+package print_queue
 
 import (
 	"testing"

@@ -1,4 +1,4 @@
-package main
+package guard_gallivant
 
 import (
 	"testing"

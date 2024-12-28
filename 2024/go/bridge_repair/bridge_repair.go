@@ -1,15 +1,8 @@
-package main
+package bridge_repair
 
 import (
-	"fmt"
-	"io"
-	"os"
 	"strconv"
 	"strings"
-)
-
-const (
-	fn = "bridge.txt"
 )
 
 // checkConcat if a target T may be made by two values X, Y s.t. T == X || Y
@@ -102,23 +95,9 @@ func one(data []byte) int {
 	return acc
 }
 
-func read(fn string) ([]byte, error) {
-	f, err := os.Open(fn)
-	if err != nil {
-		return nil, err
-	}
-	defer f.Close()
+type P struct{}
 
-	return io.ReadAll(f)
-}
+func (p P) Name() string  { return "2024/07" }
+func (p P) Input() string { return "bridge_repair.txt" }
 
-func main() {
-	data, err := read(fn)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "error opening file %s: %v\n", fn, err)
-		os.Exit(1)
-	}
-
-	fmt.Printf("part 1: %v\n", one(data))
-	fmt.Printf("part 2: %v\n", two(data))
-}
+func (p P) F(data []byte) (int, int, error) { return one(data), two(data), nil }

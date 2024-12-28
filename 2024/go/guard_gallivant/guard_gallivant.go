@@ -1,14 +1,9 @@
-package main
+package guard_gallivant
 
 import (
-	"fmt"
 	"io"
 	"os"
 	"strings"
-)
-
-const (
-	fn = "gallivant.txt"
 )
 
 // two detects how many cycles exist by adding a single obstacle.
@@ -170,6 +165,13 @@ func one(data string) int {
 	return acc
 }
 
+type P struct{}
+
+func (p P) Name() string  { return "2024/06" }
+func (p P) Input() string { return "guard_gallivant.txt" }
+
+func (p P) F(data []byte) (int, int, error) { return one(string(data)), two(string(data)), nil }
+
 func read(fn string) (string, error) {
 	f, err := os.Open(fn)
 	if err != nil {
@@ -181,14 +183,4 @@ func read(fn string) (string, error) {
 		return "", err
 	}
 	return string(data), nil
-}
-
-func main() {
-	data, err := read(fn)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "cannot read file %s: %v\n", fn, err)
-		os.Exit(1)
-	}
-	fmt.Printf("part 1: %v\n", one(data))
-	fmt.Printf("part 2: %v\n", two(data))
 }

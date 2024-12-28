@@ -1,17 +1,17 @@
-package main
+package mull_it_over
 
 import (
-	"fmt"
-	"io"
-	"os"
 	"regexp"
 	"strconv"
 	"strings"
 )
 
-const (
-	fn = "mull.txt"
-)
+type P struct{}
+
+func (p P) Name() string  { return "2024/03" }
+func (p P) Input() string { return "mull_it_over.txt" }
+
+func (p P) F(data []byte) (int, int, error) { return one(string(data)), two(string(data)), nil }
 
 func match(data string) [][]int {
 	re := regexp.MustCompile(`(?m)mul\((?P<a>[0-9]{1,3}),(?P<b>[0-9]{1,3})\)`)
@@ -48,29 +48,4 @@ func two(data string) int {
 		}
 	}
 	return acc
-}
-
-func read(fn string) (string, error) {
-	f, err := os.Open(fn)
-	if err != nil {
-		return "", err
-	}
-	defer f.Close()
-
-	s, err := io.ReadAll(f)
-	if err != nil {
-		return "", err
-	}
-	return string(s), nil
-}
-
-func main() {
-	data, err := read(fn)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "cannot read file %s: %v\n", fn, err)
-		os.Exit(1)
-	}
-
-	fmt.Printf("part 1: %v\n", one(data))
-	fmt.Printf("part 2: %v\n", two(data))
 }

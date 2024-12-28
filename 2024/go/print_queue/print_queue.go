@@ -1,15 +1,10 @@
-package main
+package print_queue
 
 import (
 	"bufio"
-	"fmt"
-	"os"
+	"bytes"
 	"strconv"
 	"strings"
-)
-
-const (
-	fn = "queue.txt"
 )
 
 func filter(edges [][]int, seqs [][]int, include bool) [][]int {
@@ -158,16 +153,17 @@ func one(edges [][]int, seqs [][]int) int {
 	return acc
 }
 
-func read(fn string) ([][]int, [][]int, error) {
-	f, err := os.Open(fn)
-	if err != nil {
-		return nil, nil, err
-	}
-	defer f.Close()
+type P struct{}
+
+func (p P) Name() string  { return "2024/05" }
+func (p P) Input() string { return "print_queue.txt" }
+
+func (p P) F(data []byte) (int, int, error) {
+	buf := bytes.NewReader(data)
 
 	edges := [][]int{}
 	seqs := [][]int{}
-	s := bufio.NewScanner(f)
+	s := bufio.NewScanner(buf)
 	addEdges := true
 	for s.Scan() {
 		line := string(s.Text())
@@ -188,15 +184,5 @@ func read(fn string) ([][]int, [][]int, error) {
 			seqs = append(seqs, seq)
 		}
 	}
-	return edges, seqs, nil
-}
-
-func main() {
-	edges, seq, err := read(fn)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "cannot read file %s: %v\n", fn, err)
-		os.Exit(1)
-	}
-	fmt.Printf("part 1: %v\n", one(edges, seq))
-	fmt.Printf("part 2: %v\n", two(edges, seq))
+	return one(edges, seqs), two(edges, seqs), nil
 }

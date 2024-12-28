@@ -1,28 +1,24 @@
-package main
+package ceres_search
 
 import (
 	"bufio"
-	"fmt"
-	"os"
+	"bytes"
 )
 
-const (
-	fn = "ceres.txt"
-)
+type P struct{}
 
-func read(fn string) ([]string, error) {
-	f, err := os.Open(fn)
-	if err != nil {
-		return nil, err
-	}
-	defer f.Close()
+func (p P) Name() string  { return "2024/04" }
+func (p P) Input() string { return "ceres_search.txt" }
 
+func (p P) F(data []byte) (int, int, error) {
 	lines := []string{}
-	s := bufio.NewScanner(f)
+	buf := bytes.NewReader(data)
+	s := bufio.NewScanner(buf)
 	for s.Scan() {
 		lines = append(lines, s.Text())
 	}
-	return lines, nil
+
+	return one(lines[0 : len(lines)-1]), two(lines[0 : len(lines)-1]), nil
 }
 
 func one(data []string) int {
@@ -78,14 +74,4 @@ func two(data []string) int {
 		}
 	}
 	return acc
-}
-
-func main() {
-	data, err := read(fn)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "cannot read file %s: %v\n", fn, err)
-		os.Exit(1)
-	}
-	fmt.Printf("part 1: %v\n", one(data[0:len(data)-1]))
-	fmt.Printf("part 2: %v\n", two(data[0:len(data)-1]))
 }

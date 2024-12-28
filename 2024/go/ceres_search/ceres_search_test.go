@@ -1,4 +1,4 @@
-package main
+package ceres_search
 
 import (
 	"testing"

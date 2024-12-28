@@ -10,11 +10,12 @@ import (
 type P struct{}
 
 func (p P) Name() string  { return "2024/02" }
-func (p P) Input() string { return "historian_hysteria.tsv" }
+func (p P) Input() string { return "red_nosed_reports.tsv" }
 
 func (p P) F(data []byte) (int, int, error) {
-	reports := [][]int{}
 	buf := bytes.NewReader(data)
+
+	reports := [][]int{}
 	s := bufio.NewScanner(buf)
 
 	for s.Scan() {

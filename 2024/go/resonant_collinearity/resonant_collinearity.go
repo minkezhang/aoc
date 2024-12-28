@@ -1,14 +1,7 @@
-package main
+package resonant_collinearity
 
 import (
-	"fmt"
-	"io"
-	"os"
 	"strings"
-)
-
-const (
-	fn = "collinearity.txt"
 )
 
 type M struct {
@@ -113,26 +106,9 @@ func (m *M) String() string {
 	return strings.Join(elems, "\n")
 }
 
-func one(data []byte) int { return New(data).One() }
-func two(data []byte) int { return New(data).Two() }
+type P struct {}
 
-func read(fn string) ([]byte, error) {
-	f, err := os.Open(fn)
-	if err != nil {
-		return nil, err
-	}
-	defer f.Close()
+func (p P) Name() string { return "2024/08" }
+func (p P) Input() string { return "resonant_collinearity.txt" }
 
-	return io.ReadAll(f)
-}
-
-func main() {
-	data, err := read(fn)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "error opening file: %v", err)
-		os.Exit(1)
-	}
-
-	fmt.Printf("part 1: %v\n", one(data))
-	fmt.Printf("part 1: %v\n", two(data))
-}
+func (p P) F(data []byte) (int, int, error) { return New(data).One(), New(data).Two(), nil }
