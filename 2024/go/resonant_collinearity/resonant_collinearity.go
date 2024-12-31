@@ -106,9 +106,9 @@ func (m *M) String() string {
 	return strings.Join(elems, "\n")
 }
 
-type P struct {}
+type P struct{}
 
-func (p P) Name() string { return "2024/08" }
+func (p P) Name() string  { return "2024/08" }
 func (p P) Input() string { return "resonant_collinearity.txt" }
 
 func (p P) F(data []byte) (int, int, error) { return New(data).One(), New(data).Two(), nil }
